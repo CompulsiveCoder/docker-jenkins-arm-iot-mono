@@ -16,6 +16,8 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install \
   python-pip \
   && rm -rf /var/lib/apt/lists/*
 
+ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenkins.war
+
 USER ${user}
 
 ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/local/jenkins.war"]
