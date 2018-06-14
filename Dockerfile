@@ -8,17 +8,19 @@ echo "deb http://download.mono-project.com/repo/debian wheezy main" | tee /etc/a
 RUN apt-get update && apt-get -y upgrade && apt-get -y install \
   wget \
   git \
+  jq \
   mono-devel \
   mono-complete \
   ca-certificates-mono \
   msbuild \
   python \
   python-pip \
+  sudo \
   && rm -rf /var/lib/apt/lists/*
 
-ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenkins.war
-
 USER ${user}
+
+ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenkins.war
 
 ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/local/jenkins.war"]
 EXPOSE 8080
