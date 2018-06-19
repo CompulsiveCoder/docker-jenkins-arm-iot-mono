@@ -25,3 +25,5 @@ ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenki
 ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/local/jenkins.war"]
 EXPOSE 8080
 CMD [""]
+
+

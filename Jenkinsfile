@@ -31,3 +31,9 @@ pipeline {
         }
     }
 }
+Boolean shouldSkipBuild() {
+    return sh( script: 'sh check-ci-skip.sh', returnStatus: true )
+}
+def shHide(cmd) {
+    sh('#!/bin/sh -e\n' + cmd)
+}
