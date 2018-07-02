@@ -16,6 +16,7 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install \
   python \
   python-pip \
   sudo \
+  mosquitto-clients \
   && rm -rf /var/lib/apt/lists/*
 
 USER ${user}
