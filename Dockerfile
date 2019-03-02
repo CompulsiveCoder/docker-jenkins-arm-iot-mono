@@ -21,6 +21,8 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install \
   python-pip \
   sudo \
   mosquitto-clients \
+  unzip \
+  jq \
   && rm -rf /var/lib/apt/lists/*
 
 USER ${user}
