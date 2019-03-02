@@ -1,9 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('Login') {
+        stage('CleanWS') {
             steps {
-                sh 'sh login.sh'
+                cleanWs()
+            }
+        }
+        stage('Checkout') {
+            steps {
+                checkout scm
+                
+                shHide( 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/docker-jenkins-arm-iot-mono.git' )
+                sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
+                sh "git fetch --no-tags"
+                sh 'git checkout $BRANCH_NAME'
+                sh 'git pull origin $BRANCH_NAME'
             }
         }
         stage('Build') {
@@ -14,6 +25,11 @@ pipeline {
         stage('Tag') {
             steps {
                 sh 'sh tag.sh'
+            }
+        }
+        stage('Login') {
+            steps {
+                shHide( 'sh login.sh ${DOCKERHUB_USERNAME} ${DOCKERHUB_PASSWORD}' )
             }
         }
         stage('Push') {
