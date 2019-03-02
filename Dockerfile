@@ -22,8 +22,16 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install \
   sudo \
   mosquitto-clients \
   unzip \
-  jq \
+  zip \
   && rm -rf /var/lib/apt/lists/*
+  
+RUN wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-1.5.tar.gz && \
+  tar xzf jq-1.5.tar.gz && \
+  cd jq-1.5/ && \
+  ./configure && make && make install && \
+  cd ../ && \
+  rm jq-1.5/ -R && \
+  rm jq-1.5.tar.gz
 
 USER ${user}
 
